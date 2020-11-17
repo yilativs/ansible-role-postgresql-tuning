@@ -1,0 +1,6 @@
+---
+  - name: Install python3-psycopg2
+    yum:
+      name: python3-psycopg2
+      state: present 
+    notify: Remove python3-psycopg2

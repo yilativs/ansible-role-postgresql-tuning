@@ -1,0 +1,24 @@
+---
+ #for ssd drives 1 should be replaced with N?
+postgresql_drive_effective_spindle_count: 1 
+
+#on small instances with 4 CPU or less it is convinient to have at least 10 connections
+postgresql_min_connections: 10
+
+#should be 1.1 for ssd, 4 for hdd and 5 for very slow virtual or network drives
+#should be determined with bonnie++ or similar tools
+postgresql_random_page_cost: 4
+
+#name of the postgresql service 
+postgresql_service_name: postgresql
+
+#setting overcommit to 2 prevents postgresql crashing from out of memory error 
+# possible values are:
+# 0: heuristic overcommit 
+# 1: always overcommit, never check
+# 2: always check, never overcommit (this is the default)
+vm_overcommit_memory: 2
+
+#sets swappiness to minimal level but does not disable it  
+vm_swappiness: 1
+

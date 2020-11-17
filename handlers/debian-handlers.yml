@@ -1,0 +1,4 @@
+---
+  - name: Purge python3-psycopg2
+    apt:
+      name: python3-psycopg2

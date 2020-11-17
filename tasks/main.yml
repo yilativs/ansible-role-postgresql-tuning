@@ -1,0 +1,99 @@
+---
+
+  - include: redhat-tasks.yml
+    when: ansible_os_family == 'RedHat'
+  
+  - include: debian-tasks.yml
+    when: ansible_os_family == 'Debian'
+
+  - name: Set vm.swappiness 
+    ansible.posix.sysctl:
+      name: vm.swappiness
+      value: "{{vm_swappiness}}"
+      state: present
+      reload: yes
+  
+  - name: Set vm.overcommit_memory 
+    ansible.posix.sysctl:
+      name: vm.overcommit_memory
+      value: "{{vm_overcommit_memory}}"
+      state: present
+      reload: yes
+
+  - name: Set work mem parameter
+    become: true
+    become_user: postgres
+    community.general.postgresql_set:
+      name: work_mem
+      value:  "{{postgresql_work_mem}}MB"
+    notify: Restart PostgreSQL systemd service
+  
+  - name: Set max connections
+    become: true
+    become_user: postgres
+    community.general.postgresql_set:
+      name: max_connections
+      value: "{{postgresql_max_connections}}"
+    notify: Restart PostgreSQL systemd service
+
+  - name: Set PostgreSQL maintenance_work_mem
+    become: true
+    become_user: postgres
+    community.general.postgresql_set:
+      name: maintenance_work_mem
+      value: "{{postgresql_maintenance_work_mem}}MB"
+    notify: Restart PostgreSQL systemd service
+  
+  - name: Set PostgreSQL shared_buffers
+    become: true
+    become_user: postgres
+    community.general.postgresql_set:
+      name: shared_buffers
+      value: "{{postgresql_shared_buffers}}MB"
+    notify: Restart PostgreSQL systemd service
+
+  - name: Set PostgreSQL effective_cache_size
+    become: true
+    become_user: postgres
+    community.general.postgresql_set:
+      name: effective_cache_size
+      value: "{{postgresql_effective_cache_size}}MB"
+    notify: Restart PostgreSQL systemd service
+
+  - name: Set PostgreSQL random_page_cost
+    become: true
+    become_user: postgres
+    community.general.postgresql_set:
+       name: random_page_cost
+       value: "{{postgresql_random_page_cost}}"
+    notify: Restart PostgreSQL systemd service  
+
+  # - name: Set PostgreSQL effective_io_concurrency
+  #   community.general.postgresql_set:
+  #     name: effective_io_concurrency
+  #     value: 300
+  #     register: postgresql_conf_changed
+
+  # - name: Set PostgreSQL wal_buffers
+  #   community.general.postgresql_set:
+  #     name: wal_buffers
+  #     value: 16MB
+  #     register: postgresql_conf_changed
+
+  # - name: Set PostgreSQL max_wal_size
+  #   community.general.postgresql_set:
+  #     name: max_wal_size
+  #     value: 4GB
+  #     register: postgresql_conf_changed        
+
+  # - name: Set PostgreSQL min_wal_size
+  #   community.general.postgresql_set:
+  #     name: min_wal_size
+  #     value: 1GB
+  #     register: postgresql_conf_changed  
+
+  # - name: Set PostgreSQL log_min_duration_statement
+  #   community.general.postgresql_set:
+  #     name: log_min_duration_statement
+  #     value: 100
+  #     register: postgresql_conf_changed      

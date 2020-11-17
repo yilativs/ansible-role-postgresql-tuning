@@ -1,0 +1,5 @@
+---
+  - name: Remove python3-psycopg2
+    yum:
+      name: python3-psycopg2
+      state: absent 
