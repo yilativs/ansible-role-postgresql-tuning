@@ -1,11 +1,11 @@
 ---
-  - include: redhat-handlers.yml
-    when: ansible_os_family == 'RedHat'
-  
-  - include: debian-handlers.yml
-    when: ansible_os_family == 'Debian'
+- include: redhat-handlers.yml
+  when: ansible_os_family == 'RedHat'
 
-  - name: Restart PostgreSQL systemd service
-    systemd:
-     name: "{{postgresql_service_name}}"
-     state: restarted
+- include: debian-handlers.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Restart PostgreSQL systemd service
+  systemd:
+    name: "{{postgresql_service_name}}"
+    state: restarted
