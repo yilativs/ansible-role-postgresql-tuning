@@ -20,6 +20,9 @@ Requirements
 
 Postgresql server must be installed and running.
 
+Make sure to install required modules:\
+`ansible-galaxy collection install community.general ansible.posix`
+
 Role Variables
 --------------
 
@@ -45,7 +48,7 @@ Allowed values are:\
 1 - always overcommit, never check\
 2 -  always check, never overcommit\
 default value is:\
-`vm_overcommit_memory: 2` 
+`vm_overcommit_memory: 2`
 
 Sets swappiness to minimal level but does not disable it (to disable set to 0)\
 default value is:\
