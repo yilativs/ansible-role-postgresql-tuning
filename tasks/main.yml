@@ -8,14 +8,14 @@
 - name: Set vm.swappiness
   ansible.posix.sysctl:
     name: vm.swappiness
-    value: "{{vm_swappiness|string}}"
+    value: "{{ vm_swappiness|string }}"
     state: present
     reload: true
 
 - name: Set vm.overcommit_memory
   ansible.posix.sysctl:
     name: vm.overcommit_memory
-    value: "{{vm_overcommit_memory|string}}"
+    value: "{{ vm_overcommit_memory|string }}"
     state: present
     reload: true
 
@@ -24,7 +24,7 @@
   become_user: postgres
   community.general.postgresql_set:
     name: work_mem
-    value: "{{postgresql_work_mem}}MB"
+    value: "{{ postgresql_work_mem }}MB"
   notify: Restart PostgreSQL systemd service
 
 - name: Set max connections
@@ -32,7 +32,7 @@
   become_user: postgres
   community.general.postgresql_set:
     name: max_connections
-    value: "{{postgresql_max_connections}}"
+    value: "{{ postgresql_max_connections }}"
   notify: Restart PostgreSQL systemd service
 
 - name: Set PostgreSQL maintenance_work_mem
@@ -40,7 +40,7 @@
   become_user: postgres
   community.general.postgresql_set:
     name: maintenance_work_mem
-    value: "{{postgresql_maintenance_work_mem}}MB"
+    value: "{{ postgresql_maintenance_work_mem }}MB"
   notify: Restart PostgreSQL systemd service
 
 - name: Set PostgreSQL shared_buffers
@@ -48,7 +48,7 @@
   become_user: postgres
   community.general.postgresql_set:
     name: shared_buffers
-    value: "{{postgresql_shared_buffers}}MB"
+    value: "{{ postgresql_shared_buffers }}MB"
   notify: Restart PostgreSQL systemd service
 
 - name: Set PostgreSQL effective_cache_size
@@ -56,7 +56,7 @@
   become_user: postgres
   community.general.postgresql_set:
     name: effective_cache_size
-    value: "{{postgresql_effective_cache_size}}MB"
+    value: "{{ postgresql_effective_cache_size }}MB"
   notify: Restart PostgreSQL systemd service
 
 - name: Set PostgreSQL random_page_cost
@@ -64,7 +64,7 @@
   become_user: postgres
   community.general.postgresql_set:
     name: random_page_cost
-    value: "{{postgresql_random_page_cost|string}}"
+    value: "{{ postgresql_random_page_cost|string }}"
   notify: Restart PostgreSQL systemd service
 
 # - name: Set PostgreSQL effective_io_concurrency
