@@ -20,9 +20,6 @@ Requirements
 
 Postgresql server must be installed and running.
 
-Make sure to install required modules:\
-`ansible-galaxy collection install community.general ansible.posix`
-
 Role Variables
 --------------
 
@@ -57,16 +54,17 @@ default value is:\
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Make sure to install required modules:\
+`ansible-galaxy collection install community.general ansible.posix`
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+In this example 2 parameters for SSD drive installation are used:
 
     - hosts: servers
       roles:
-         - { role: yilativs.postgresql_tune, postgresql_random_page_cost: 1 }
+         - { role: yilativs.postgresql_tuning, postgresql_random_page_cost: 1, postgresql_drive_effective_spindle_count: 2 }
 
 License
 -------
